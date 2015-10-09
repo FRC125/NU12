@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import com.nutrons.reboundrumbledemo.commands.CommandBase;
 import com.nutrons.reboundrumbledemo.commands.drivetrain.TankDriveCmd;
+import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,6 +26,7 @@ import com.nutrons.reboundrumbledemo.commands.drivetrain.TankDriveCmd;
 public class Nutrons2012 extends IterativeRobot {
 
     Command autonomousCommand;
+    Compressor compressor;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -33,6 +35,7 @@ public class Nutrons2012 extends IterativeRobot {
     public void robotInit() {
         // instantiate the command used for the autonomous period
         autonomousCommand = new TankDriveCmd();
+        compressor = new Compressor(RobotMap.AIR_PRESSURE, RobotMap.COMPRESSOR_PORT);
 
         // Initialize all subsystems
         CommandBase.init();
@@ -56,6 +59,7 @@ public class Nutrons2012 extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         autonomousCommand.cancel();
+        compressor.start();
     }
 
     /**
@@ -70,5 +74,6 @@ public class Nutrons2012 extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+        compressor.start();
     }
 }
